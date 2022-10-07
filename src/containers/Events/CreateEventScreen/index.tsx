@@ -681,7 +681,7 @@ class CreateEvent extends React.Component {
             <View style={{
                 flexDirection: 'row',
                 alignItems: 'flex-start',
-                marginTop: moderateScale(6)
+                marginTop: moderateScale(4)
             }}>
                 <GooglePlacesAutocomplete
                     placeholder='Enter Address'
@@ -1208,8 +1208,11 @@ class CreateEvent extends React.Component {
                         <AppInput
                             value={this.state.eventName}
                             placeholder="Enter Event Name"
+                            
+                        
+                            
                             placeholderTextColor={"#cccccc"}
-                            style={{ padding: 9, marginTop: moderateScale(6) }}
+                            style={{ padding:9, marginTop: moderateScale(6) ,minHeight:moderateScale(42)}}
                             onChangeText={val => this.setState({ eventName: val })}
                         />
                         <View style={{ height: moderateScale(14) }}>

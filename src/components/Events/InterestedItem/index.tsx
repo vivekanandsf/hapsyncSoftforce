@@ -127,12 +127,12 @@ const InterestedItem = (props) => {
 
       let task = props.data
 
-      return <View style={{ flexDirection: "row" }}>
-         <View style={{ width: "30%", }}>
+      return <View style={{ flexDirection: "row", marginTop: 10 }}>
+         <View style={{ width: "30%" }}>
             <Text style={styles.guestcount} >No of Guests</Text>
             <Text style={styles.guestcount} >Activity Name</Text>
          </View>
-         <View>
+         <View >
             <Text style={styles.guestcount} >{invitees.length}</Text>
             <Text style={styles.guestcount} >{task?.name}</Text>
          </View>
@@ -144,37 +144,27 @@ const InterestedItem = (props) => {
    const renderBottomSection = () => {
       return <View style={{
          flexDirection: 'row',
-         justifyContent: 'space-between',
-         alignItems: 'center',
+         justifyContent: 'flex-start',
+         // alignItems: 'center',
          marginTop: 5
       }}>
-         <View style={{
-            flexDirection: 'row',
-            alignItems: 'center'
-         }}>
-            <Text style={{
-               color: 'rgba(53, 93, 155, 1)',
-               fontSize: 10,
-               fontFamily: "Mulish-Bold"
-            }}>{moment(data.timings[0].slot).format("DD MMM YYYY")}</Text>
-            {data.timings[0].startTime &&
-               <Text style={{
-                  color: 'rgba(53, 93, 155, 1)',
-                  fontSize: 10,
-                  fontFamily: "Mulish-Bold"
-               }}>{" , " + moment(data.timings[0].startTime, "hh:mm").format("LT")}</Text>
-            }
+
+
+         <View style={{ flex: 1, marginTop: 5}}>
+            <Text style={styles.contactname}>Contact Name: {data.hostName}</Text>
+            <Text style={styles.contactname}>Contact Phone #: {data.hostPhone}</Text>
          </View>
+
          <View style={{ flexDirection: 'row', alignItems: "center" }}>
             <Pressable
                onPress={() => {
                   navigation.navigate("EventTabsForVendor", { screen: 'Chat', data: props.data })
                   //setUnreadCount(0)
                }}
-               style={{ marginRight: 30, }}
+               style={{ marginRight: 15, }}
             >
                <View
-                  style={{ flexDirection: 'row' }}
+                  style={[styles.blueBox, { marginTop: 10 }]}
                >
                   <SvgIcons.CommentIcon />
                   {/* <Text style={{
@@ -186,10 +176,9 @@ const InterestedItem = (props) => {
             </Pressable>
 
             <View
-               style={{ transform: [{ scale: moderateScale(0.8) }] }}
+               style={[styles.blueBox, { marginTop: 10 }]}
             >
-               <SvgIcons.GoButton
-               />
+               <Image style={{ height: 22, width: 22 }} source={require("../../../assets/images/open-eye.png")} />
             </View>
          </View>
       </View>
@@ -204,27 +193,45 @@ const InterestedItem = (props) => {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
          <View style={{ width: '50%', }}>
             <Text style={{
-               fontSize: 14,
+
+               fontSize: moderateScale(14),
                fontFamily: 'Mulish-ExtraBold',
                color: 'rgba(53, 93, 155, 1)'
             }}>{data?.name}</Text>
-            <Text style={{
-               fontSize: 10,
-               color: '#87899C',
-               fontFamily: "Mulish-Bold",
-               marginTop: 5
-            }}>{data?.locations[0].name}</Text>
+
 
          </View>
-         <View style={{ flex: 1, alignItems: "center", }}>
-            <Text style={styles.contactname}>Contact Name: {data.hostName}</Text>
-            <Text style={styles.contactname}>Contact Phone #: {data.hostPhone}</Text>
+         <View style={{
+            flexDirection: 'row',
+            // alignItems: 'center'
+         }}>
+            <Text style={{
+               color: 'rgba(53, 93, 155, 1)',
+               fontSize: moderateScale(14),
+               fontFamily: "Mulish-Bold"
+            }}>{moment(data.timings[0].slot).format("DD MMM YYYY")}</Text>
+            {data.timings[0].startTime &&
+               <Text style={{
+                  color: 'rgba(53, 93, 155, 1)',
+                  fontSize: 10,
+                  fontFamily: "Mulish-Bold"
+               }}>{" , " + moment(data.timings[0].startTime, "hh:mm").format("LT")}</Text>
+            }
          </View>
       </View>
+      <View>
+         <Text style={{
+            fontSize: moderateScale(13),
+            color: '#87899C',
+            fontFamily: "Mulish-Bold",
+            marginTop: 5
+         }}>{data?.locations[0].name}</Text>
+         {renderGuestsCount()}
 
-      {renderGuestsCount()}
+         {renderBottomSection()}
+      </View>
 
-      {renderBottomSection()}
+
    </Pressable>
 }
 
@@ -264,13 +271,24 @@ const styles = StyleSheet.create<Styles>({
    guestcount: {
       color: "#474752",
       fontFamily: "Mulish",
-      fontSize: 11
+      fontSize:moderateScale(13)
    },
    contactname: {
-      fontSize: 11,
+      fontSize: moderateScale(13),
       color: "#474752",
-      fontFamily: 'Mulish-Regular',
-      fontStyle: 'italic',
+      fontFamily: 'Mulish',
+      
+   },
+   blueBox: {
+      width: moderateScale(30),
+      height: moderateScale(30),
+      borderRadius: moderateScale(4),
+      //backgroundColor: "rgba(0, 173, 239, 1)",
+      //marginTop: 5.6,
+      borderColor: 'rgba(0, 173, 239, 1)',
+      borderWidth: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
    }
 })
 

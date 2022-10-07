@@ -42,6 +42,7 @@ import validator from 'validator'
 import 'react-native-get-random-values'
 import ImagePicker from 'react-native-image-crop-picker';
 import { v4 as uuidv4 } from 'uuid';
+import DashedLine from 'react-native-dashed-line';
 
 class EventTasks extends React.Component {
     state = {
@@ -253,9 +254,10 @@ class EventTasks extends React.Component {
                 minHeight: moderateScale(150),
                 backgroundColor: '#fff',
                 borderRadius: moderateScale(6),
-                borderWidth: 2,
-                borderStyle: 'dashed',
-                borderColor: 'rgba(53, 93, 155, 1)',
+                borderWidth: 0.1,
+                // borderStyle: 'dashed',
+                borderColor: '#88879c',
+                elevation: 5,
                 marginBottom: moderateScale(15),
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -278,7 +280,7 @@ class EventTasks extends React.Component {
                                 marginRight: moderateScale(10),
                                 minWidth: '45%',
                                 marginTop: moderateScale(10),
-                                borderRadius: moderateScale(6)
+                                borderRadius: moderateScale(5)
                             }}
                             source={{ uri: image.receiptUrl ? image.receiptUrl : image.path }}
                         // source={require("../../../assets/images/splashscreen.png")}
@@ -288,19 +290,20 @@ class EventTasks extends React.Component {
             </> : <>
                 <View style={{
                     backgroundColor: '#00ADEF',
-                    height: verticalScale(47),
-                    width: verticalScale(59),
+                    height: verticalScale(50),
+                    width: verticalScale(50),
                     justifyContent: 'center',
                     alignItems: 'center',
-                    borderRadius: verticalScale(15)
+                    borderRadius: verticalScale(50)
                 }}>
                     <SvgIcons.ReceiptIcon
                         style={{
-                            transform: [{ scale: moderateScale(1.07) }]
+
+                            transform: [{ scale: moderateScale(1.0) }]
                         }}
                     />
                 </View>
-                <AppText style={[styles.heading,{marginTop:6}]}>Add Receipts</AppText>
+                <AppText style={[styles.heading, { marginTop: 6 }]}>Add Receipts</AppText>
                 <AppText style={{ color: 'rgba(0, 173, 239, 1)' }}>
                     (up to 12 Mb)
                 </AppText>
@@ -312,7 +315,7 @@ class EventTasks extends React.Component {
 
     renderDateSelector = () => {
 
-        return <View style={{   }}>
+        return <View style={{}}>
             <AppText style={[styles.heading]}>Date</AppText>
             <Pressable
                 onPress={() => {
@@ -329,7 +332,7 @@ class EventTasks extends React.Component {
                     //paddingHorizontal: moderateScale(8),
                     justifyContent: 'space-between'
                 }}>
-               
+
                 <AppText style={{
                     color: 'rgba(53, 93, 155, 1)',
                     fontFamily: 'Mulish-Regular',
@@ -375,11 +378,11 @@ class EventTasks extends React.Component {
                             minHeight: verticalScale(100),
                             paddingVertical: verticalScale(11),
                             borderRadius: verticalScale(10),
-                            marginBottom:10
+                            marginBottom: 10
                         }}>
                         <View style={{ paddingHorizontal: 20 }}>
                             <View style={{ alignSelf: 'center' }}>
-                                <AppText style={[{ color: '#355D9B', fontSize:moderateScale(15),fontFamily:'Mulish-Bold' }]}>Add Payment</AppText>
+                                <AppText style={[{ color: '#355D9B', fontSize: moderateScale(15), fontFamily: 'Mulish-Bold' }]}>Add Payment</AppText>
                             </View>
                             <View>
                                 <AppInput
@@ -398,7 +401,7 @@ class EventTasks extends React.Component {
                                     style={{ fontFamily: 'Mulish-Light' }}
                                 />
                             </View>
-                            <View style={{marginVertical:verticalScale(10)}}>
+                            <View style={{ marginVertical: verticalScale(10) }}>
                                 <AppInput
                                     onChangeText={(val) => {
                                         if (this.state.paymentName !== "" && validator.isNumeric(val)) {
@@ -467,12 +470,16 @@ class EventTasks extends React.Component {
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom:10
+                marginBottom: 10,
+                backgroundColor: "#faf4ff",
+                borderRadius: 5,
+                padding: 8
+
             }}>
-                <Text style={styles.heading}>Payments</Text>
+                <Text style={styles.heading}>Add Payments</Text>
                 <Pressable
                     style={{
-                        marginRight: -moderateScale(4)
+                        marginRight: moderateScale(4)
                     }}
                     onPress={() => {
                         if (this.props.currentEvent.taskAccess) {
@@ -481,7 +488,7 @@ class EventTasks extends React.Component {
                     }}
                 >
                     <Feather
-                        name="plus"
+                        name="plus-circle"
                         style={{
                             color: '#355D9B',
                             fontSize: verticalScale(28)
@@ -489,60 +496,114 @@ class EventTasks extends React.Component {
                     />
                 </Pressable>
             </View>
-            {
-                payments.map((each, index) => {
-                    return <View
-                        key={index}
-                        style={{  
-                            borderRadius: verticalScale(6),
-                            backgroundColor: '#fff',
-                            borderColor: 'grey',
-                            borderWidth: 0.5,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                            padding: verticalScale(12),
-                            marginBottom: 10,
-                        }}
-                    >
-                        <View style={{
-                        }}>
-                            <AppText style={{
-                                color: '#355D9B',
-                                fontFamily: 'Mulish-Bold',
-                                fontSize:moderateScale(15)
-                            }}>
-                                {each.name}
-                            </AppText>
-                            <View style={{height:10}}></View>
-                            <AppText style={{
-                                color: '#88879C',
-                                fontSize: verticalScale(11)
-                            }}>
-                                {moment(each.date).format('YYYY-MM-DD')}
-                            </AppText>
+
+            <View style={{
+                borderRadius: verticalScale(6),
+                backgroundColor: '#fff',
+                borderColor: 'grey',
+                borderWidth: 0.8,
+                // flexDirection: 'row',
+                // alignItems: 'center',
+                // justifyContent: 'space-between',
+                padding: verticalScale(15),
+                // marginBottom: 1,
+                borderStyle: 'dashed',
+            }}>
+
+                {
+                    payments.map((each, index) => {
+                        return <View
+                            key={index}
+
+                        >
+
+
+
+
+                            <View style={{ display: "flex", flexDirection: "row", marginBottom: 15, marginTop: 15, justifyContent: "space-between" }}>
+
+                                <View>
+                                    <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                        <SvgIcons.AssignedIcon
+                                            fill="#73c400"
+                                            style={{
+                                                transform: [{ scale: moderateScale(1.4) }],
+                                                marginLeft: moderateScale(0)
+                                            }}
+                                        />
+ 
+                                            <View>
+                                        <AppText style={{
+                                            color: '#355D9B',
+                                            fontFamily: 'Mulish-Bold',
+                                            fontSize: moderateScale(14),
+                                            fontWeight: "bold",
+                                            marginLeft: 15,
+                                        }}>
+                                            {each.name}
+                                        </AppText>
+                                        <AppText style={{
+                                            
+                                            color: '#88879C',
+                                            fontSize: verticalScale(10),
+                                            marginLeft: 15,
+
+                                        }}>
+                                            {moment(each.date).format('YYYY-MM-DD')}
+                                        </AppText>
+                                        </View>
+
+
+                                    </View>
+
+
+                                </View>
+
+
+
+                                <View>
+                                    <AppText style={{
+                                        color: '#355D9B',
+                                        fontSize: verticalScale(15),
+                                        fontWeight: "bold",
+
+
+
+                                    }}>
+                                        INR {each.amount}
+                                    </AppText>
+                                </View>
+
+
+
+
+
+
+
+                            </View>
+
+
+
+
+
+                            <View style={{ width: "100%", marginBottom: 10 }}>
+                                <DashedLine dashLength={5} dashThickness={1} dashColor='#88879c' />
+                            </View>
+
+
+
+
+
+
+
                         </View>
-                        <View style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                        }}>
-                            <AppText style={{
-                                color: '#88879C',
-                                fontSize: verticalScale(18)
-                            }}>
-                                {each.amount}
-                            </AppText>
-                            <SvgIcons.AssignedIcon
-                                fill="#355D9B"
-                                style={{
-                                    transform: [{ scale: moderateScale(0.85) }],
-                                    marginLeft: moderateScale(4)
-                                }}
-                            />
-                        </View>
-                    </View>
-                })
-            }
+
+
+
+
+                    })
+                }
+            </View>
         </View>
     }
 
@@ -594,7 +655,7 @@ class EventTasks extends React.Component {
 
                     {formValue.amount.inEditMode ? <View style={styles.section}>
                         <Text style={styles.heading}>Total Amount</Text>
-                        <TextInput style={[styles.textval,{borderBottomWidth: 0.5,}]}
+                        <TextInput style={[styles.textval, { borderBottomWidth: 0.5, }]}
                             onChangeText={(val) => {
                                 this.handleTextAndEditableUpdate("amount", val, true)
                                 if (!validator.isNumeric(val)) {
@@ -611,29 +672,44 @@ class EventTasks extends React.Component {
                         </View>
                     </View>
                         :
-                         <Pressable
+                        <Pressable
                             onLongPress={() => {
                                 this.handleTextAndEditableUpdate("amount", undefined, true)
                             }}
                         >
                             <View style={styles.section}>
-                                <Text style={styles.heading}>Total Amount</Text>
-                                <Text style={styles.textval}>{this.state.formValue.amount.value}</Text>
+                                <View style={{ alignItems: "center", justifyContent: "center" }}>
+
+                                    <Text style={[styles.heading, { marginTop: 0 }, { marginBottom: 0 }]}>Total Amount</Text>
+                                    <Text style={[styles.textval, { fontSize: 26 }, { marginTop: 0 }]}>INR {this.state.formValue.amount.value}</Text>
+                                    <View style={{ width: "100%", marginTop: 30 }}>
+                                        <DashedLine dashLength={5} dashThickness={1} dashColor='#88879c' />
+                                    </View>
+
+                                </View>
+
+
+
+                                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                                    <View>
+
+
+                                        <Text style={styles.textval}>Paid:-{paid}</Text>
+
+
+                                    </View>
+
+                                    <View style={[styles.section, { marginTop: 10 }, { marginBottom: 2 }, { backgroundColor: "#355D9B" }]}>
+
+                                        <Text style={[styles.textval, { color: "#fff" }]}>Due:{due}</Text>
+                                    </View>
+                                </View>
                             </View>
+
+
                         </Pressable>
                     }
 
-                    <View style={{ flexDirection: 'row', }}>
-                        <View style={[styles.section, { flex: 1, alignSelf: 'flex-start' }]}>
-                            <Text style={styles.heading}>Paid</Text>
-                            <Text style={styles.textval}>{paid}</Text>
-                        </View>
-                        <View style={{ width: moderateScale(10) }}></View>
-                        <View style={[styles.section, { flex: 1, alignSelf: 'flex-end' }]}>
-                            <Text style={styles.heading}>Due</Text>
-                            <Text style={styles.textval}>{due}</Text>
-                        </View>
-                    </View>
                     {/* <AppInput
                             placeholder="500$"
                             placeholderTextColor="#88879C"
@@ -644,12 +720,15 @@ class EventTasks extends React.Component {
                             <Text style={styles.heading}>Notes</Text>
                             <TextInput style={{
                                 color: '#88879C',
-                                minHeight: verticalScale(50),
+                                minHeight: verticalScale(45),
                                 textAlignVertical: 'top',
                                 borderWidth: verticalScale(0.5),
                                 borderRadius: verticalScale(6),
                                 borderColor: '#355D9B',
-                                padding: 5
+                                padding: 5,
+                                marginBottom: 5
+
+
                             }}
                                 onChangeText={(val) => {
                                     this.handleTextAndEditableUpdate("note", val, true)
@@ -665,16 +744,18 @@ class EventTasks extends React.Component {
                                 this.handleTextAndEditableUpdate("note", undefined, true)
                             }}
                         >
-                            <View style={styles.section}>
-                                <Text style={styles.heading}>Notes</Text>
+                            <View style={[styles.section, { paddingTop: 10 }]}>
+                                <Text style={[styles.heading, { paddingBottom: 0 }]}>Notes</Text>
                                 <Text style={{
                                     color: '#88879C',
-                                    minHeight: verticalScale(50),
+                                    minHeight: verticalScale(42),
                                     textAlignVertical: 'top',
                                     borderWidth: verticalScale(0.5),
                                     borderRadius: verticalScale(6),
                                     borderColor: '#355D9B',
-                                    padding: 5
+                                    padding: 5,
+                                    marginBottom: 5
+
                                 }}>{this.state.formValue.note.value}</Text>
 
                             </View>
@@ -717,9 +798,10 @@ const styles = StyleSheet.create({
             }
         }),
     },
-    textval:{
-        fontSize:moderateScale(15),
-        color: '#88879C',
+    textval: {
+        fontSize: moderateScale(15),
+        color: '#355D9B',
+        fontWeight: "bold"
     },
     button: {
         height: verticalScale(40),

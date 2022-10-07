@@ -613,7 +613,7 @@ class AddTask extends React.Component {
 
                                 <Text style={{
                                     color: '#88879C'
-                                }}>{this.state.formValue.amount.value}</Text>
+                                }}>{String(this.state.formValue.amount.value)}</Text>
 
                             </View>
                         </Pressable>

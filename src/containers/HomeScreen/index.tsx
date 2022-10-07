@@ -221,7 +221,7 @@ class HomeScreen extends React.Component {
                     >Upcoming Events ({this.props.upcomingEvents.length})</Text>
                     {this.renderUpcomingEvents()}
 
-                    
+
                     {this.renderMemories()}
                     <ShareHapsync />
                 </View>
@@ -246,6 +246,7 @@ const styles = StyleSheet.create<Styles>({
         marginBottom: moderateScale(11)
     }
 })
+
 
 /* const { getEvents } = eventsApi.endpoints
 

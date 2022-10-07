@@ -51,7 +51,8 @@ export default function SendFeedback(props) {
                         }}
                         style={styles.subView}>
                         <Text style={styles.subText}>Tell us What you like</Text>
-                        <AntDesign name="rightsquareo" size={20} color="#00ADEF" />
+                        <AntDesign name="rightcircleo" size={20} color="#00ADEF" />
+                        
                      </Pressable>
                      <View style={styles.line}></View>
                   </View>
@@ -68,7 +69,7 @@ export default function SendFeedback(props) {
                         }}
                         style={styles.subView}>
                         <Text style={styles.subText}>Tell us What could be better</Text>
-                        <AntDesign name="rightsquareo" size={20} color="#00ADEF" />
+                        <AntDesign name="rightcircleo" size={20} color="#00ADEF" />
                      </Pressable>
                      <View style={styles.line}></View>
                   </View>

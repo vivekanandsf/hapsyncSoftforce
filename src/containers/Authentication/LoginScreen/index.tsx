@@ -144,7 +144,7 @@ class Login extends React.Component<Props, LoginStateType> {
             return <View key={key} style={{ width: '100%', alignSelf: 'center' }}>
                 <AuthInput
                     // label={formValue[key].label}
-                    containerStyle={{ marginBottom: 3, marginTop: 2 }}
+                    containerStyle={{ marginBottom: 3, marginTop:2}}
                     style={{
                         width: '100%',
                     }}
@@ -263,18 +263,24 @@ class Login extends React.Component<Props, LoginStateType> {
                 borderRadius: moderateScale(15),
                 marginHorizontal: moderateScale(40),
                 minHeight: verticalScale(200),
-                padding: moderateScale(35)
+                padding: moderateScale(20)
             }}>
                 {this.buildFormInputs()}
                 <AppButton
+                
                     style={{
-                        marginTop: 30
+                        marginTop: 30,
+                        
+
                     }}
                     title="LOGIN"
-                    disabled={!this.checkSubmitButtonValid()}
+                  //  disabled={!this.checkSubmitButtonValid()}
+
                     clicked={this.submit}
+                    
                 />
             </View>
+
            {/*  <View style={{ flexDirection: 'row', justifyContent: 'flex-end',  marginHorizontal: moderateScale(40), paddingHorizontal:10 }}>
                 <Button 
                     title={"OTP Login"}
@@ -363,7 +369,13 @@ class Login extends React.Component<Props, LoginStateType> {
                 
                 <AppButton
                     title="OTP LOGIN"
-                    disabled={!this.state.otpLogin.valid}
+                    labelStyle={{color:'#355D9B'}}
+                    style={{borderColor:'#355D9B',
+                    backgroundColor:"#fff",
+                     borderWidth:1,}}
+
+
+                   //disabled={!this.state.otpLogin.valid}
                     clicked={()=>{
                         axios.post(
                             "/sms/sendOtp",

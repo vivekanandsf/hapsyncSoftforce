@@ -305,6 +305,8 @@ const UpcomingItem = (props) => {
         </View>
     }
 
+
+
     return <Pressable
         onPress={() => {
             if (props.role == "ORGANIZATION") {
@@ -329,7 +331,8 @@ const UpcomingItem = (props) => {
                     fontFamily: 'Mulish-ExtraBold',
                     color: 'rgba(53, 93, 155, 1)',
                     width: "50%"
-                }}>{data?.name}</Text>
+                }}>{data?.name}
+            </Text>
 
             <View style={{
                 flexDirection: 'row',
@@ -348,20 +351,20 @@ const UpcomingItem = (props) => {
                     }}>{" , " + moment(data.timings[0].startTime, "hh:mm").format("LT")}</Text>
                 }
             </View>
-        </View> 
-        <View style={{paddingVertical:10}}>
+        </View>
+        <View style={{ paddingVertical: 10 }}>
             <Text style={{
                 fontSize: moderateScale(13),
                 color: '#87899C',
                 fontFamily: "Mulish",
                 fontWeight: '600',
-                lineHeight:22
+                lineHeight: 22
             }}>{data?.locations[0]?.name}</Text>
-        </View> 
+        </View>
         {//renderProgress()
         }
         {renderGuestsProgress()}
-        <View style={{height:15}}></View>
+        <View style={{ height: 15 }}></View>
 
         {renderBottomSection()}
     </Pressable>
@@ -401,12 +404,12 @@ const styles = StyleSheet.create<Styles>({
         fontSize: 10
     },
     italicText: {
-        fontFamily: "Mulish-BoldItalic", 
+        fontFamily: "Mulish-BoldItalic",
         color: "rgba(53, 93, 155, 1)"
     },
     greyText: {
         color: "#88879C",
-        fontFamily: "Mulish-BoldItalic", 
+        fontFamily: "Mulish-BoldItalic",
     },
     blueBox: {
         width: moderateScale(30),

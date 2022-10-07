@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Pressable, StyleSheet, ViewStyle, Text, Platform } from 'react-native'
+import { View, Pressable, StyleSheet, ViewStyle, Text, Platform, Image } from 'react-native'
 
 import AppText from '../../UI/AppText'
 import * as SvgIcons from '../../../assets/svg-icons'
@@ -46,7 +46,7 @@ const RecommendedItem = (props: Props) => {
             <Text
                 numberOfLines={1}
                 style={{
-                    fontSize: 10,
+                    fontSize:moderateScale(10) ,
                     color: '#87899C',
                     fontFamily: "Mulish-Bold",
                     marginTop: 5,
@@ -56,7 +56,7 @@ const RecommendedItem = (props: Props) => {
             </Text>
         </View>
 
-        <View style={{ flexDirection: "row", marginVertical: 7 }}>
+        <View style={{ flexDirection: "row", marginVertical: 7, }}>
             <View style={{ width: "60%", }}>
                 <Text style={styles.guestcount} >No of Guests</Text>
             </View>
@@ -73,14 +73,17 @@ const RecommendedItem = (props: Props) => {
             }}
         >
             {data.timings.length > 0 && <Text
-                style={{ fontSize: moderateScale(9), fontFamily: "Mulish-Bold", color: '#355D9B', flex: 1 }}
+                style={{ fontSize: moderateScale(10), fontFamily: "Mulish-Bold", color: '#355D9B', flex: 1 }}
             > {moment(data.timings[0].slot).format("DD MMM[,] YYYY") + (data.timings[0].startTime == null ? "" : moment(data.timings[0].startTime, "hh:mm").format(" - LT"))}
             </Text>}
             <View
                 style={{ transform: [{ scale: moderateScale(0.8) }], }}
             >
-                <SvgIcons.GoButton
-                />
+               
+
+                <Image style={{ height: 22, width: 22 }} source={require("../../../assets/images/open-eye.png")} />
+
+
             </View>
         </View>
 

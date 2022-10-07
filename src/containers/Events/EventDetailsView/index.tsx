@@ -444,6 +444,7 @@ const styles = StyleSheet.create({
       marginVertical: verticalScale(5),
       color: '#355D9B',
       fontFamily: 'Mulish-Bold',
+      marginBottom:1
    },
    value: {
       color: '#88879C',

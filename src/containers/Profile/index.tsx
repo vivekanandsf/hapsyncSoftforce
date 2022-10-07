@@ -72,32 +72,49 @@ export default function Profile(props) {
 
     const renderPersonalDetails = () => {
         return <>
+
+            <View style={{ alignItems: 'center', justifyContent: "center", marginTop: 35 }}>
+                <Image
+                    source={
+                        data.userData.imageUrl
+                            ? { uri: data.userData.imageUrl }
+                            : require("../../assets/images/splashscreen.png")
+                    }
+                    style={{
+                        height: verticalScale(126),
+                        width: verticalScale(126),
+                        borderRadius: verticalScale(80),
+                        zIndex: 1,
+                        borderWidth: 0.5,
+
+
+                    }}
+                />
+
+            </View>
+            
+
             <View style={{
+                position: 'absolute',
+
+                marginTop: 120,
+
+
                 backgroundColor: '#fff',
                 minHeight: verticalScale(250),
-                borderRadius: verticalScale(15),
-                padding: moderateScale(25),
-                justifyContent: 'space-around'
+                width: "100%",
+                borderRadius: verticalScale(10),
+                padding: moderateScale(5),
+                justifyContent: 'space-around',
+
             }}>
                 <View style={{
                     alignSelf: 'center',
                     alignItems: 'center',
-                    marginVertical: 20
+                    marginVertical: 70,
+                    marginBottom: 10
                 }}>
-                    <Image
-                        source={
-                            data.userData.imageUrl
-                                ? { uri: data.userData.imageUrl }
-                                : require("../../assets/images/splashscreen.png")
-                        }
-                        style={{
-                            height: verticalScale(126),
-                            width: verticalScale(126),
-                            borderRadius: verticalScale(80),
-                            marginBottom: verticalScale(10),
-                            borderWidth:0.5
-                        }}
-                    />
+
                     <Text style={{
                         color: '#355D9B',
                         fontWeight: 'bold',
@@ -120,7 +137,7 @@ export default function Profile(props) {
                             alignItems: 'center',
                             flexDirection: 'row'
                         }}>
-                        <SimpleLineIcons name="globe" size={25} color="#fff" />
+                        {/* <SimpleLineIcons name="globe" size={25} color="#fff" /> */}
                         <Text style={{
                             color: '#fff',
                             marginLeft: moderateScale(6),
@@ -132,7 +149,7 @@ export default function Profile(props) {
                     }
 
                 </View>
-                <View style={{ margin: 10 }}>
+                <View style={{ height: 310 }}>
                     {
                         list.map((l, i) => (
                             <View key={i}>
@@ -161,9 +178,17 @@ export default function Profile(props) {
                         ))
                     }
                 </View>
+
+                <View style={{ alignItems: "center", justifyContent: "center" }}>
+                    <><Text>v0.1.34</Text></>
+
+                </View>
+
             </View>
+
         </>
     }
+
     return (
         <ImageBackground
             source={require("../../assets/images/blurBG.png")}
@@ -179,7 +204,7 @@ export default function Profile(props) {
             <TopBar
                 style={{ backgroundColor: 'transparent' }}
                 title="Profile"
-                rightComponent={<><Text>v0.1.34</Text></>}
+            //rightComponent={<><Text>v0.1.34</Text></>}
             />
             <ScrollView contentContainerStyle={{
                 flexGrow: 1,

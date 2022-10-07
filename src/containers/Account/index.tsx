@@ -278,19 +278,14 @@ export default function Account(props) {
         let list = [name, email, phone]
 
         return <>
-            <View style={{
-                backgroundColor: '#fff',
-                minHeight: verticalScale(250),
-                borderRadius: verticalScale(15),
-                padding: moderateScale(25),
-                justifyContent: 'space-around'
-            }}>
+            <View style={{ marginTop: 30 }}>
                 <View style={{
                     alignSelf: 'center',
                     alignItems: 'center',
-                    marginVertical: 20,
+                    //marginVertical: 20,
+                    zIndex: 1
                 }}>
-                    <ImageBackground
+                    <Image
                         source={
                             photo.value.path
                                 ? { uri: photo.value.path }
@@ -299,206 +294,227 @@ export default function Account(props) {
                         style={{
                             height: verticalScale(126),
                             width: verticalScale(126),
-                            marginBottom: verticalScale(10),
+                            // marginBottom: verticalScale(10),
                             borderRadius: verticalScale(80),
-                        }} >
-                        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                            <Pressable
-                                onPress={async () => {
-                                    await ImageCropPicker.openPicker({
-                                        cropping: true,
-                                        freeStyleCropEnabled: true,
-                                        mediaType: 'photo',
-                                    }).then(img => {
-                                        console.log(img)
-                                        let obj = { ...img }
-                                        obj.fileName = uuidv4()
-                                        setPhoto({
-                                            ...photo,
-                                            value: obj,
-                                            inEditMode: true
-                                        })
-                                    }).catch(e => {
-                                        console.log(e)
-                                    })
-                                }}
-                                style={{ height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.55)' }}>
 
-                                <FontAwesome5 name="camera" size={20} color="white" />
-                            </Pressable>
-                        </View>
-                    </ImageBackground>
+
+                        }} >
+                    </Image>
+                    <View style={{ marginTop: 100, zIndex: 1, justifyContent: 'flex-end', position: "absolute" }}>
+                        <Pressable
+                            onPress={async () => {
+                                await ImageCropPicker.openPicker({
+                                    cropping: true,
+                                    freeStyleCropEnabled: true,
+                                    mediaType: 'photo',
+                                }).then(img => {
+                                    console.log(img)
+                                    let obj = { ...img }
+                                    obj.fileName = uuidv4()
+                                    setPhoto({
+                                        ...photo,
+                                        value: obj,
+                                        inEditMode: true
+                                    })
+                                }).catch(e => {
+                                    console.log(e)
+                                })
+                            }}
+                            style={{ height: 20, justifyContent: 'center', alignItems: 'center',  }}>
+
+                            <FontAwesome5 name="camera" size={20} color="white" />
+                        </Pressable>
+                    </View>
+
                 </View>
-                <View style={{ margin: 5 }}>
-                    {
-                        list.map((l, i) => (
-                            <View key={i}>
-                                <Pressable
-                                    onLongPress={() => {
-                                        enableEditMode(l)
-                                    }}
-                                    style={{ flexDirection: 'row', padding: 7, alignItems: 'center' }}
-                                >
-                                    <View>
-                                        {l.imgIcon}
-                                    </View>
-                                    <View style={{ marginLeft: 15, flex: 1 }}>
-                                        {l.inEditMode
-                                            ? <>
-                                                <TextInput
-                                                    multiline={true}
-                                                    {...l.props}
-                                                    value={l.value}
-                                                    onChangeText={(val) => {
-                                                        editValue(l, val)
-                                                    }}
-                                                />
-                                            </>
-                                            : <Text
-                                                style={{
-                                                    fontFamily: 'Mulish',
-                                                    color: "#355D9B",
-                                                    fontSize: 15
-                                                }}
-                                            >{l.value}</Text>
-                                        }
-                                    </View>
-                                </Pressable>
-                                <View
-                                    style={{
-                                        borderBottomColor: "#00ADEF", opacity: 0.5, borderBottomWidth: 1,
-                                    }}
-                                ></View>
-                                {l.errorMsg != "" &&
-                                    <Text style={{ color: "red", alignSelf: 'flex-end', marginBottom: 7 }}>{l.errorMsg}</Text>
-                                }
-                            </View>
-                        ))
-                    }
-                    {userData?.role == "USER" &&
-                        <>
-                            <View
-                                style={{ flexDirection: 'row', padding: 7, alignItems: 'center' }}
-                            >
-                                <View>
-                                    {<SimpleLineIcons name="globe" size={28} color="#00ADEF" />}
-                                </View>
-                                <View style={{ marginLeft: 15, flex: 1 }}>
-                                    <Text
-                                        style={{
-                                            fontFamily: 'Mulish',
-                                            color: "#355D9B",
-                                            fontSize: 15
+
+                <View style={{
+                    backgroundColor: '#fff',
+                    minHeight: verticalScale(250),
+                    borderRadius: verticalScale(15),
+                    padding: moderateScale(25),
+                    justifyContent: 'space-around',
+                    position: 'absolute',
+                    width: "100%",
+                    marginTop: 80,
+
+
+
+                }}>
+
+                    <View style={{ marginTop: 80 }}>
+                        {
+                            list.map((l, i) => (
+                                <View key={i}>
+                                    <Pressable
+                                        onLongPress={() => {
+                                            enableEditMode(l)
                                         }}
-                                    >Associated Organizations</Text>
-                                </View>
-                                <Pressable
-                                    style={{
-                                        marginRight: -moderateScale(4)
-                                    }}
-                                    onPress={() => {
-                                        setModalShow(true)
-                                    }}
-                                >
-                                    <Feather
-                                        name="plus"
-                                        style={{
-                                            color: '#00ADEF',
-                                            fontSize: verticalScale(28)
-                                        }}
-                                    />
-                                </Pressable>
-                            </View>
-                            <View>
-                                {userData.userOrgAssocList?.map((l, i) => (
-                                    <View key={i}>
-                                        <View style={{ flexDirection: 'row', padding: 7, alignItems: 'center' }}>
-                                            <View style={{ marginLeft: 15, flex: 1 }}>
-                                                <Text
-                                                    style={{
-                                                        fontFamily: 'Mulish',
-                                                        color: "#355D9B",
-                                                        fontSize: 15
-                                                    }}
-                                                >{l.orgName}</Text>
-                                            </View>
-                                            <View>
-                                                <Pressable
-                                                    style={{
-                                                        marginLeft: 'auto'
-                                                    }}
-                                                    onPress={() => {
-                                                        removeUserFromOrg(l.id)
-                                                    }}>
-                                                    <MaterialCommunityIcons
-                                                        name="minus"
-                                                        style={{
-                                                            color: '#E14F50',
-                                                            fontSize: moderateScale(23),
+                                        style={{ flexDirection: 'row', padding: 10, alignItems: 'center' }}
+                                    >
+                                        <View>
+                                            {l.imgIcon}
+                                        </View>
+                                        <View style={{ marginLeft: 15, flex: 1 }}>
+                                            {l.inEditMode
+                                                ? <>
+                                                    <TextInput
+                                                        multiline={true}
+                                                        {...l.props}
+                                                        value={l.value}
+                                                        onChangeText={(val) => {
+                                                            editValue(l, val)
                                                         }}
                                                     />
-                                                </Pressable>
-                                            </View>
-                                        </View>
-                                        <View
-                                            style={{
-                                                borderBottomColor: "grey", opacity: 0.5, borderBottomWidth: 1, paddingHorizontal: 7
-                                            }}
-                                        ></View>
-                                    </View>
-                                ))}
-                            </View>
-                            {renderModal()}
-                        </>
-                    }
-                    {userData?.role == "VENDOR" &&
-                        <>
-                            <View
-                                style={{ flexDirection: 'row', padding: 7, alignItems: 'center' }}
-                            >
-                                <View>
-                                    {<Octicons name="list-unordered" size={25} color="#00ADEF" />}
-                                </View>
-                                <View style={{ marginLeft: 15, flex: 1 }}>
-                                    <Text
-                                        style={{
-                                            fontFamily: 'Mulish',
-                                            color: "#355D9B",
-                                            fontSize: 15
-                                        }}
-                                    >Vendor Types</Text>
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                    borderBottomColor: "#00ADEF", opacity: 0.5, borderBottomWidth: 1, paddingHorizontal: 7
-                                }}
-                            ></View>
-
-                            <View>
-                                {userData.vendorActivityTypes?.map((l, i) => (
-                                    <View key={i}>
-                                        <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center' }}>
-                                            <View style={{ marginLeft: 15, flex: 1 }}>
-                                                <Text
+                                                </>
+                                                : <Text
                                                     style={{
                                                         fontFamily: 'Mulish',
                                                         color: "#355D9B",
                                                         fontSize: 15
                                                     }}
-                                                >{l.activityTypeName}</Text>
-                                            </View>
+                                                >{l.value}</Text>
+                                            }
                                         </View>
-                                        <View
-                                            style={{
-                                                borderBottomColor: "#00ADEF", opacity: 0.5, borderBottomWidth: 1, paddingHorizontal: 7
-                                            }}
-                                        ></View>
+                                    </Pressable>
+                                    <View
+                                        style={{
+                                            borderBottomColor: "#00ADEF", opacity: 0.5, borderBottomWidth: 1,
+                                        }}
+                                    ></View>
+                                    {l.errorMsg != "" &&
+                                        <Text style={{ color: "red", alignSelf: 'flex-end', marginBottom: 7 }}>{l.errorMsg}</Text>
+                                    }
+                                </View>
+                            ))
+                        }
+                        {userData?.role == "USER" &&
+                            <>
+                                <View
+                                    style={{ flexDirection: 'row', padding: 10, alignItems: 'center' }}
+                                >
+                                    <View>
+                                        {<SimpleLineIcons name="globe" size={28} color="#00ADEF" />}
                                     </View>
-                                ))}
-                            </View>
-                        </>
-                    }
+                                    <View style={{ marginLeft: 15, flex: 1 }}>
+                                        <Text
+                                            style={{
+                                                fontFamily: 'Mulish',
+                                                color: "#355D9B",
+                                                fontSize: 15
+                                            }}
+                                        >Associated Organizations</Text>
+                                    </View>
+                                    <Pressable
+                                        style={{
+                                            marginRight: -moderateScale(4)
+                                        }}
+                                        onPress={() => {
+                                            setModalShow(true)
+                                        }}
+                                    >
+                                        <Feather
+                                            name="plus"
+                                            style={{
+                                                color: '#00ADEF',
+                                                fontSize: verticalScale(28)
+                                            }}
+                                        />
+                                    </Pressable>
+                                </View>
+                                <View>
+                                    {userData.userOrgAssocList?.map((l, i) => (
+                                        <View key={i}>
+                                            <View style={{ flexDirection: 'row', padding: 10, alignItems: 'center' }}>
+                                                <View style={{ marginLeft: 15, flex: 1 }}>
+                                                    <Text
+                                                        style={{
+                                                            fontFamily: 'Mulish',
+                                                            color: "#355D9B",
+                                                            fontSize: 15
+                                                        }}
+                                                    >{l.orgName}</Text>
+                                                </View>
+                                                <View>
+                                                    <Pressable
+                                                        style={{
+                                                            marginLeft: 'auto'
+                                                        }}
+                                                        onPress={() => {
+                                                            removeUserFromOrg(l.id)
+                                                        }}>
+                                                        <MaterialCommunityIcons
+                                                            name="minus"
+                                                            style={{
+                                                                color: '#E14F50',
+                                                                fontSize: moderateScale(23),
+                                                            }}
+                                                        />
+                                                    </Pressable>
+                                                </View>
+                                            </View>
+                                            <View
+                                                style={{
+                                                    borderBottomColor: "grey", opacity: 0.5, borderBottomWidth: 1, paddingHorizontal: 7
+                                                }}
+                                            ></View>
+                                        </View>
+                                    ))}
+                                </View>
+                                {renderModal()}
+
+                            </>
+                        }
+                        {userData?.role == "VENDOR" &&
+                            <>
+                                <View
+                                    style={{ flexDirection: 'row', padding: 10, alignItems: 'center' }}
+                                >
+                                    <View>
+                                        {<Octicons name="list-unordered" size={25} color="#00ADEF" />}
+                                    </View>
+                                    <View style={{ marginLeft: 15, flex: 1 }}>
+                                        <Text
+                                            style={{
+                                                fontFamily: 'Mulish',
+                                                color: "#355D9B",
+                                                fontSize: 15
+                                            }}
+                                        >Vendor Types</Text>
+                                    </View>
+                                </View>
+                                <View
+                                    style={{
+                                        borderBottomColor: "#00ADEF", opacity: 0.5, borderBottomWidth: 1, paddingHorizontal: 7
+                                    }}
+                                ></View>
+
+                                <View>
+                                    {userData.vendorActivityTypes?.map((l, i) => (
+                                        <View key={i}>
+                                            <View style={{ flexDirection: 'row', padding:13, alignItems: 'center' }}>
+                                                <View style={{ marginLeft: 15, flex: 1 }}>
+                                                    <Text
+                                                        style={{
+                                                            fontFamily: 'Mulish',
+                                                            color: "#355D9B",
+                                                            fontSize: 15
+                                                        }}
+                                                        
+                                                    >{l.activityTypeName}</Text>
+                                                </View>
+                                            </View>
+                                            <View
+                                                style={{
+                                                    borderBottomColor: "#00ADEF", opacity: 0.5, borderBottomWidth: 1, paddingHorizontal: 0
+                                                }}
+                                            ></View>
+                                        </View>
+                                    ))}
+                                </View>
+                            </>
+                        }
+                    </View>
                 </View>
             </View>
         </>

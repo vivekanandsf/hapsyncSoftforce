@@ -160,7 +160,7 @@ class EventTasks extends React.Component {
                 height: verticalScale(143),
                 flex: 1,
                 alignItems: 'center',
-                justifyContent: 'center',
+                paddingTop:20,
                 marginRight: moderateScale(3)
             }}>
                 <AppText style={lightBlueText}>Planned Budget</AppText>
@@ -177,6 +177,7 @@ class EventTasks extends React.Component {
                                 }
                             }}
                             value={String(this.state.plannedBudget)}
+                            
                             style={[boldBlueText, { fontSize: verticalScale(20), borderBottomWidth: 1, borderColor: 'grey', paddingHorizontal: 20 }]}
                             multiline={true}
                             numberOfLines={1}
@@ -211,11 +212,15 @@ class EventTasks extends React.Component {
                     borderRadius: verticalScale(10),
                     height: verticalScale(89),
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    paddingTop:20,
+                    
+                    
                 }}>
                     <AppText style={lightBlueText}>Final Cost</AppText>
-                    <AppText style={boldBlueText}>{this.state.finalCost}</AppText>
+                    <AppText style={[boldBlueText]}>{this.state.finalCost}</AppText>
                 </View>
+
+
                 <View style={{
                     flexDirection: 'row',
                     flex: 1,
@@ -228,7 +233,7 @@ class EventTasks extends React.Component {
                         alignItems: 'center',
                         borderRadius: verticalScale(10)
                     }}>
-                        <AppText style={lightBlueText}>Paid</AppText>
+                        <AppText style={[lightBlueText,{paddingBottom:1}]}>Paid</AppText>
                         <AppText style={skyBlueText}>{this.state.paid}</AppText>
                     </View>
                     <View style={{
@@ -236,9 +241,10 @@ class EventTasks extends React.Component {
                         backgroundColor: '#fff',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        borderRadius: verticalScale(10)
+                        borderRadius: verticalScale(10),
+                        marginLeft:3    
                     }}>
-                        <AppText style={lightBlueText}>Pending</AppText>
+                        <AppText style={[lightBlueText,{paddingBottom:1}]}>Pending</AppText>
                         <AppText style={skyBlueText}>{this.state.pending}</AppText>
                     </View>
                 </View>
@@ -325,11 +331,11 @@ class EventTasks extends React.Component {
         return <View
             style={{
                 backgroundColor: '#fff',
-                borderRadius: verticalScale(16),
-                padding: moderateScale(20),
+                borderRadius: verticalScale(10),
+                padding: moderateScale(10),
                 borderTopLeftRadius: 0,
                 borderTopRightRadius: 0,
-                //marginBottom: verticalScale(8),
+               // marginBottom: verticalScale(8),
                 marginTop: -verticalScale(12),
             }}
         >
@@ -350,6 +356,8 @@ class EventTasks extends React.Component {
                                 color: '#355D9B',
                                 fontSize: verticalScale(13),
                                 //fontWeight: 'bold'
+                                padding:5,
+                                margin:0
                             }}
                         >{each.name}</AppText>
                         <View style={{ height: 5 }}></View>
@@ -382,14 +390,23 @@ class EventTasks extends React.Component {
             }
         }) */
 
-        return <View style={{
-            marginTop: verticalScale(10)
-        }}>
+        return <View style={
+            {marginTop: verticalScale(0)}
+            
+            
+
+            
+
+        }>
             <Accordion
+
+            
                 activeSections={activeSections}
                 sections={accordionData}
+            
                 renderSectionTitle={() => { }}
                 renderHeader={this.renderAccordionHeader}
+                
                 renderContent={this.renderAccordionContent}
                 onChange={this.updateSection}
                 underlayColor="transparent"
@@ -438,26 +455,31 @@ class EventTasks extends React.Component {
 }
 
 
+
+
+
 const deviceWidth = Dimensions.get("window").width
 const deviceHeight = Dimensions.get("window").height
 
 const styles = StyleSheet.create({
     heading: {
         fontSize: moderateScale(14),
-        marginVertical: verticalScale(6),
+        marginVertical: verticalScale(0),
         color: '#355D9B',
-        fontFamily: 'Mulish-ExtraBold'
+        fontFamily: 'Mulish-ExtraBold',
+        
     },
     section: {
         backgroundColor: '#fff',
-        padding: verticalScale(20),
-        borderRadius: verticalScale(15),
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
+        padding: verticalScale(10),
+        borderRadius: verticalScale(10),
+        //borderBottomLeftRadius: 0,
+        //borderBottomRightRadius: 0,
         //marginBottom: verticalScale(15),
-        marginTop: verticalScale(13),
+        marginTop: verticalScale(10),
         elevation: 1
     },
+   
 })
 
 const mapStateToProps = state => {
